@@ -6,12 +6,14 @@ interface HeaderProps {
   isDarkMode: boolean;
   toggleDarkMode: () => void;
   toggleMobileMenu: () => void;
-  currentPage?: 'home' | 'about' | 'contact' | 'gallery';
+  currentPage?: 'home' | 'about' | 'contact' | 'gallery' | 'photo';
+  showBackButton?: boolean;
 }
 
 const Header: React.FC<HeaderProps> = ({ 
   toggleMobileMenu, 
-  currentPage = 'home' 
+  currentPage = 'home',
+  showBackButton = false
 }) => {
   const [isProfileOpen, setIsProfileOpen] = useState(false);
 
@@ -32,15 +34,27 @@ const Header: React.FC<HeaderProps> = ({
   return (
     <header className="sticky top-0 z-50 w-full border-b border-solid border-[#f4ede7] dark:border-[#3d2e1f] bg-background-light/80 dark:bg-background-dark/80 backdrop-blur-md px-6 lg:px-20 py-4">
       <div className="mx-auto flex max-w-[1440px] items-center justify-between">
-        {/* Logo */}
-        <Link to="/" className="flex items-center gap-3">
-          <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-primary text-white">
-            <span className="material-symbols-outlined">filter_hdr</span>
-          </div>
-          <h2 className="text-xl font-extrabold tracking-tight text-[#1c140d] dark:text-white">
-            The Gallery
-          </h2>
-        </Link>
+        {/* Logo dengan Back Button */}
+        <div className="flex items-center gap-3">
+          {showBackButton && (
+            <Link 
+              to="/"
+              className="mr-2 text-primary hover:text-primary/80 transition-colors flex items-center gap-1"
+            >
+              <span className="material-symbols-outlined">arrow_back</span>
+              <span className="text-sm font-medium hidden sm:inline">Kembali</span>
+            </Link>
+          )}
+          
+          <Link to="/" className="flex items-center gap-3">
+            <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-primary text-white">
+              <span className="material-symbols-outlined">filter_hdr</span>
+            </div>
+            <h2 className="text-xl font-extrabold tracking-tight text-[#1c140d] dark:text-white">
+              The Gallery
+            </h2>
+          </Link>
+        </div>
 
         {/* Desktop Navigation */}
         <nav className="hidden md:flex items-center gap-10">

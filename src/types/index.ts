@@ -54,3 +54,28 @@ export interface SocialLink {
   name: string;
   url: string;
 }
+
+
+export interface PhotoDetail extends Photo {
+  date: string;
+  series: string;
+  description: string;
+  location: string;
+  latitude: string;
+  longitude: string;
+  camera: string;
+  lens: string;
+  aperture: string;
+  shutterSpeed: string;
+  iso: string;
+  resolution: string;
+  colors: string[];
+  isFavorite: boolean;
+}
+
+export interface MetadataItem {
+  id: string;
+  label: string;
+  value: string;
+  icon: string;
+}

@@ -1,5 +1,5 @@
 import { useState } from 'react';
-
+import { useNavigate } from 'react-router-dom';
 // Define type langsung di sini jika import error
 interface Photo {
   id: string;
@@ -16,6 +16,11 @@ interface GallerySectionProps {
 
 const GallerySection = ({ photos }: GallerySectionProps) => {
   const [hoveredPhoto, setHoveredPhoto] = useState<string | null>(null);
+  const navigate = useNavigate();
+
+  const handlePhotoClick = (photoId: string) => {
+    navigate(`/photo/${photoId}`);
+  };
 
   return (
     <section className="py-20 px-6 lg:px-20">
@@ -44,6 +49,7 @@ const GallerySection = ({ photos }: GallerySectionProps) => {
               className="group relative aspect-[3/4] overflow-hidden rounded-2xl cursor-pointer"
               onMouseEnter={() => setHoveredPhoto(photo.id)}
               onMouseLeave={() => setHoveredPhoto(null)}
+              onClick={() => handlePhotoClick(photo.id)}
             >
               <img 
                 alt={photo.title}
@@ -67,6 +73,15 @@ const GallerySection = ({ photos }: GallerySectionProps) => {
                 <span className="inline-flex items-center rounded-full bg-black/50 backdrop-blur-sm px-3 py-1 text-xs font-medium text-white">
                   {photo.category}
                 </span>
+              </div>
+
+              {/* Click Indicator */}
+              <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
+                <div className="bg-white/20 backdrop-blur-sm rounded-full p-4">
+                  <span className="material-symbols-outlined text-white text-2xl">
+                    zoom_in
+                  </span>
+                </div>
               </div>
             </div>
           ))}

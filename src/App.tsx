@@ -2,7 +2,8 @@ import { useState, useEffect } from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import HomePage from './pages/HomePage';
 import AboutPage from './pages/AboutPage';
-// import ContactPage from './pages/ContactPage'; // Buat nanti
+import ContactPage from './pages/ContactPage';
+import PhotoDetailPage from './pages/PhotoDetailPage'; // IMPORT BARU
 
 // Define types
 interface Photo {
@@ -103,6 +104,7 @@ function App() {
   return (
     <Router>
       <Routes>
+        {/* Home Page */}
         <Route 
           path="/" 
           element={
@@ -111,28 +113,70 @@ function App() {
               toggleDarkMode={toggleDarkMode}
               toggleMobileMenu={toggleMobileMenu}
               isMobileMenuOpen={isMobileMenuOpen}
+              onCloseMobileMenu={() => setIsMobileMenuOpen(false)}
               galleryPhotos={galleryPhotos}
               services={services}
             />
           } 
         />
         
-<Route 
-  path="/about" 
-  element={
-    <AboutPage 
-      isDarkMode={isDarkMode}
-      toggleDarkMode={toggleDarkMode}
-      toggleMobileMenu={toggleMobileMenu}
-      isMobileMenuOpen={isMobileMenuOpen} // KIRIM PROP INI
-      onCloseMobileMenu={() => setIsMobileMenuOpen(false)} // KIRIM PROP INI
-    />
-  } 
-/>
+        {/* About Page */}
+        <Route 
+          path="/about" 
+          element={
+            <AboutPage 
+              isDarkMode={isDarkMode}
+              toggleDarkMode={toggleDarkMode}
+              toggleMobileMenu={toggleMobileMenu}
+              isMobileMenuOpen={isMobileMenuOpen}
+              onCloseMobileMenu={() => setIsMobileMenuOpen(false)}
+            />
+          } 
+        />
         
-        {/* Buat nanti */}
-        {/* <Route path="/contact" element={<ContactPage />} /> */}
-        {/* <Route path="/gallery" element={<GalleryPage />} /> */}
+        {/* Contact Page */}
+        <Route 
+          path="/contact" 
+          element={
+            <ContactPage 
+              isDarkMode={isDarkMode}
+              toggleDarkMode={toggleDarkMode}
+              toggleMobileMenu={toggleMobileMenu}
+              isMobileMenuOpen={isMobileMenuOpen}
+              onCloseMobileMenu={() => setIsMobileMenuOpen(false)}
+            />
+          } 
+        />
+        
+        {/* Photo Detail Page - BARU */}
+        <Route 
+          path="/photo/:id" 
+          element={
+            <PhotoDetailPage 
+              isDarkMode={isDarkMode}
+              toggleDarkMode={toggleDarkMode}
+              toggleMobileMenu={toggleMobileMenu}
+              isMobileMenuOpen={isMobileMenuOpen}
+              onCloseMobileMenu={() => setIsMobileMenuOpen(false)}
+            />
+          } 
+        />
+        
+        {/* Fallback - Redirect to Home if route not found */}
+        <Route 
+          path="*" 
+          element={
+            <HomePage 
+              isDarkMode={isDarkMode}
+              toggleDarkMode={toggleDarkMode}
+              toggleMobileMenu={toggleMobileMenu}
+              isMobileMenuOpen={isMobileMenuOpen}
+              onCloseMobileMenu={() => setIsMobileMenuOpen(false)}
+              galleryPhotos={galleryPhotos}
+              services={services}
+            />
+          } 
+        />
       </Routes>
     </Router>
   );

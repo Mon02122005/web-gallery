@@ -1,50 +1,47 @@
 import React from 'react';
-import Header from '../components/Header';
+import Layout from '../components/Layout';
 import HeroSection from '../components/HeroSection';
 import ServicesSection from '../components/ServicesSection';
 import GallerySection from '../components/GallerySection';
-import Footer from '../components/Footer';
-import MobileSidebar from '../components/MobileSidebar';
+
+// Define types
+interface Photo {
+  id: string;
+  title: string;
+  description?: string;
+  imageUrl: string;
+  category: string;
+  featured: boolean;
+}
+
+interface Service {
+  id: string;
+  title: string;
+  description: string;
+  icon: string;
+}
 
 interface HomePageProps {
   isDarkMode: boolean;
   toggleDarkMode: () => void;
   toggleMobileMenu: () => void;
   isMobileMenuOpen: boolean;
-  galleryPhotos: any[];
-  services: any[];
+  onCloseMobileMenu: () => void; // ADD THIS
+  galleryPhotos: Photo[];
+  services: Service[];
 }
 
-const HomePage: React.FC<HomePageProps> = ({
-  isDarkMode,
-  toggleDarkMode,
-  toggleMobileMenu,
-  isMobileMenuOpen,
-  galleryPhotos,
-  services
-}) => {
-  return (
-    <div className="min-h-screen bg-background-light dark:bg-background-dark text-[#1c140d] dark:text-[#f8f7f5] transition-colors duration-300">
-      <Header 
-        isDarkMode={isDarkMode}
-        toggleDarkMode={toggleDarkMode}
-        toggleMobileMenu={toggleMobileMenu}
-        currentPage="home"
-      />
-      
-      <MobileSidebar 
-        isOpen={isMobileMenuOpen}
-        onClose={toggleMobileMenu}
-      />
+const HomePage: React.FC<HomePageProps> = (props) => {
+  const { galleryPhotos, services } = props;
 
+  return (
+    <Layout {...props} currentPage="home">
       <main>
         <HeroSection />
         <ServicesSection services={services} />
         <GallerySection photos={galleryPhotos} />
       </main>
-
-      <Footer />
-    </div>
+    </Layout>
   );
 };
 
